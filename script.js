@@ -1,3 +1,11 @@
+// ---------------- Section Show/Hide ----------------
+function showSection(id) {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(sec => sec.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+}
+
+// ---------------- Login/Logout ----------------
 const loginBtn = document.getElementById('login-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const modal = document.getElementById('login-modal');
@@ -22,9 +30,8 @@ loginSubmit.addEventListener('click', () => {
         return;
     }
 
-    // Fetch users.json
     fetch('users.json')
-        .then(response => response.json())
+        .then(res => res.json())
         .then(users => {
             const user = users.find(u => u.username === username && u.password === password);
             if (user) {
