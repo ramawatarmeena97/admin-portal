@@ -25,16 +25,17 @@
 
     <!-- Main Content -->
     <main class="main-content">
+        <!-- Header -->
+        <header>
+            <h1>Welcome, <span id="user-name">Guest</span></h1>
+            <div class="user-info">
+                <button id="login-btn">Login</button>
+                <button id="logout-btn" style="display:none;">Logout</button>
+            </div>
+        </header>
+
         <!-- Dashboard Section -->
         <section id="dashboard">
-            <header>
-                <h1>Welcome, eMitra User</h1>
-                <div class="user-info">
-                    <span>Your Role: Operator</span>
-                </div>
-            </header>
-
-            <!-- Summary Cards -->
             <div class="cards">
                 <div class="card">
                     <h3>Total Services</h3>
@@ -74,7 +75,6 @@
                     <p>Pay your monthly electricity bill online.</p>
                     <button onclick="alert('Redirect to Electricity Bill Payment')">Pay Now</button>
                 </div>
-                <!-- Add more services below -->
             </div>
         </section>
 
@@ -110,5 +110,18 @@
             </table>
         </section>
     </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="login-submit">Login</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
