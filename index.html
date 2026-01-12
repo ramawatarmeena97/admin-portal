@@ -1,167 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin – Service Portal Panel</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,Helvetica,sans-serif;background:#0b172a;min-height:100vh;color:#e9eef5;}
-    .layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh;}
-    .sidebar{background:#0f223f;padding:18px 14px;border-right:1px solid #0e1830;}
-    .logo{font-size:20px;font-weight:700;margin-bottom:18px;text-align:center;}
-    .menu a{display:block;padding:10px 12px;border-radius:12px;margin-bottom:6px;text-decoration:none;color:#e9eef5;font-size:14px;background:#132b52;} 
-    .menu a.active,.menu a:hover{background:#1b3d6f;}
-    .topbar{background:#0f223f;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #0e1830;}
-    .badge{padding:6px 10px;border-radius:10px;background:#132b52;}
-    .content{padding:20px;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:18px;}
-    .card{background:#132b52;border-radius:18px;padding:16px;box-shadow:0 8px 18px rgba(0,0,0,.25);} 
-    .card h3{font-size:16px;margin-bottom:8px;}
-    .big{font-size:26px;font-weight:700;}
-    .services .service{background:#102744;border-radius:16px;padding:12px;text-align:center;cursor:pointer;}
-    .services .service:hover{background:#163566;}
-    .services .service span{display:block;font-size:13px;margin-top:4px;}
-    table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;}
-    th,td{padding:8px 6px;text-align:left;} th{background:#163566;} tr:nth-child(even){background:#102744;}
-    .login{max-width:420px;margin:40px auto;background:#102744;border-radius:20px;padding:20px;text-align:center;}
-    input,select{width:100%;padding:10px 12px;border-radius:12px;border:0;margin-top:4px;background:#0f223f;color:#fff;}
-    button{padding:10px 18px;border:0;border-radius:14px;font-weight:600;cursor:pointer;margin-top:15px;background:#ffd740;color:#000;}
-    .hidden{display:none;}
-  </style>
+<title>Admin Service Portal</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+  margin:0;
+  font-family: Arial;
+  background: linear-gradient(135deg,#007bff,#00e5b5);
+}
+
+/* top header */
+.header{
+  background:#ffffff;
+  padding:12px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  color:#007bff;
+  box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* main box */
+.panel{
+  max-width:420px;
+  margin:40px auto;
+  background:white;
+  border-radius:12px;
+  padding:25px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.25);
+}
+
+/* buttons */
+.btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  margin-top:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.loginbtn{background:#007bff;color:white;}
+.servicebtn{background:#28a745;color:white;}
+.printbtn{background:#ff5722;color:white;}
+.updatebtn{background:#9c27b0;color:white;}
+
+input{
+ width:100%;
+ padding:10px;
+ margin-top:10px;
+ border-radius:8px;
+ border:1px solid #ccc;
+}
+
+</style>
 </head>
+
 <body>
 
-<!-- LOGIN PAGE -->
-<div id="login" class="login">
-  <h2>Admin Login</h2>
-  <label>Username</label>
-  <input id="u" type="text" placeholder="Enter username" />
-  <label>Password</label>
-  <input id="p" type="password" placeholder="Enter password" />
-  <button onclick="login()">Login</button>
+<div class="header">
+ADMIN SERVICE PORTAL
 </div>
 
-<!-- ADMIN PANEL -->
-<div id="panel" class="layout hidden">
-  <aside class="sidebar">
-    <div class="logo">Admin Service Portal</div>
-    <div class="menu">
-      <a class="active" onclick="showTab('dashboard')">Dashboard</a>
-      <a onclick="showTab('wallet')">Wallet</a>
-      <a onclick="showTab('services')">Services</a>
-      <a onclick="showTab('reports')">Reports</a>
-      <a onclick="showTab('settings')">Settings</a>
-    </div>
-  </aside>
+<div class="panel">
 
-  <main>
-    <div class="topbar">
-      <div id="title">Dashboard</div>
-      <div class="badge" id="date"></div>
-    </div>
-    <div class="content">
+<h2 style="text-align:center;">Login</h2>
 
-      <!-- DASHBOARD TAB -->
-      <div id="dashboard" class="tab">
-        <div class="grid">
-          <div class="card"><h3>Total Users</h3><div class="big" id="tUsers">18</div></div>
-          <div class="card"><h3>Today's Transactions</h3><div class="big" id="tTxn">42</div></div>
-          <div class="card"><h3>Wallet Balance (₹)</h3><div class="big" id="bal">5000</div></div>
-        </div>
-      </div>
+<input type="text" placeholder="Enter Username">
 
-      <!-- WALLET TAB -->
-      <div id="wallet" class="tab hidden">
-        <div class="card">
-          <h3>Add Wallet Money</h3>
-          <label>Amount (₹)</label>
-          <input id="amt" type="number" placeholder="Enter amount" />
-          <button onclick="addMoney()">Add Balance</button>
-        </div>
-        <div class="card">
-          <h3>Wallet History</h3>
-          <table>
-            <thead><tr><th>#</th><th>Amount</th><th>Type</th><th>Date</th></tr></thead>
-            <tbody id="wHist"></tbody>
-          </table>
-        </div>
-      </div>
+<input type="password" placeholder="Enter Password">
 
-      <!-- SERVICES TAB -->
-      <div id="services" class="tab hidden">
-        <div class="card services">
-          <h3>Available Services</h3>
-          <div class="grid">
-            <div class="service">Voter ID<span>Apply / Correction</span></div>
-            <div class="service">Aadhaar Print<span>PVC / Color</span></div>
-            <div class="service">PAN Card<span>NSDL / UTI</span></div>
-            <div class="service">Recharge<span>Mobile / DTH</span></div>
-          </div>
-        </div>
-      </div>
+<button class="loginbtn">Login Now</button>
 
-      <!-- REPORTS TAB -->
-      <div id="reports" class="tab hidden">
-        <div class="card">
-          <h3>Recent Transactions</h3>
-          <table>
-            <thead><tr><th>#</th><th>Service</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
-            <tbody id="rep"></tbody>
-          </table>
-        </div>
-      </div>
+<hr>
 
-      <!-- SETTINGS TAB -->
-      <div id="settings" class="tab hidden">
-        <div class="card">
-          <h3>Profile Settings</h3>
-          <label>Shop Name</label>
-          <input placeholder="Enter shop name" />
-          <label>Mobile</label>
-          <input placeholder="Enter phone" />
-          <label>Password</label>
-          <input type="password" placeholder="Change password" />
-          <button>Save Settings</button>
-        </div>
-      </div>
+<h3>Quick Services</h3>
 
-    </div>
-  </main>
+<button class="servicebtn">Voter Card Service</button>
+<button class="printbtn">Print Receipt</button>
+<button class="updatebtn">Update Profile</button>
+
+<p style="text-align:center;color:gray;font-size:12px;margin-top:15px;">
+Designed by You 🙂
+</p>
+
 </div>
 
-<script>
-  function login(){
-    const u=document.getElementById('u').value.trim();
-    const p=document.getElementById('p').value.trim();
-    if(u==='admin' && p==='1234'){
-      document.getElementById('login').classList.add('hidden');
-      document.getElementById('panel').classList.remove('hidden');
-    }else alert('Wrong username or password');
-  }
-
-  function showTab(id){
-    document.querySelectorAll('.tab').forEach(t=>t.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-    document.getElementById('title').innerText=id.charAt(0).toUpperCase()+id.slice(1);
-  }
-
-  function addMoney(){
-    const v=document.getElementById('amt').value;
-    if(!v) return alert('Enter amount');
-    const bal=document.getElementById('bal');
-    bal.innerText=parseInt(bal.innerText)+parseInt(v);
-    const tb=document.getElementById('wHist');
-    const r=tb.insertRow();
-    const idx=tb.rows.length;
-    r.insertCell(0).innerText=idx;
-    r.insertCell(1).innerText=v;
-    r.insertCell(2).innerText='Credit';
-    r.insertCell(3).innerText=new Date().toLocaleDateString();
-    document.getElementById('amt').value='';
-  }
-
-  document.getElementById('date').innerText=new Date().toDateString();
-</script>
 </body>
 </html>
+
