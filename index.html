@@ -12,48 +12,74 @@
         <div class="logo">eMitra Dashboard</div>
         <nav>
             <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Applications</a></li>
-                <li><a href="#">Wallet Refill</a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#applications">Applications</a></li>
+                <li><a href="#wallet">Wallet Refill</a></li>
+                <li><a href="#reports">Reports</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#logout">Logout</a></li>
             </ul>
         </nav>
     </aside>
 
-    <!-- Main content -->
+    <!-- Main Content -->
     <main class="main-content">
-        <header>
-            <h1>Welcome, eMitra User</h1>
-            <div class="user-info">
-                <span>Your Role: Operator</span>
-            </div>
-        </header>
+        <!-- Dashboard Section -->
+        <section id="dashboard">
+            <header>
+                <h1>Welcome, eMitra User</h1>
+                <div class="user-info">
+                    <span>Your Role: Operator</span>
+                </div>
+            </header>
 
-        <!-- Summary cards -->
-        <section class="cards">
-            <div class="card">
-                <h3>Total Services</h3>
-                <p>150+</p>
-            </div>
-            <div class="card">
-                <h3>Pending Apps</h3>
-                <p>12</p>
-            </div>
-            <div class="card">
-                <h3>Wallet Balance</h3>
-                <p>₹ 2,500</p>
-            </div>
-            <div class="card">
-                <h3>Today Transactions</h3>
-                <p>45</p>
+            <!-- Summary Cards -->
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Services</h3>
+                    <p>150+</p>
+                </div>
+                <div class="card">
+                    <h3>Pending Apps</h3>
+                    <p>12</p>
+                </div>
+                <div class="card">
+                    <h3>Wallet Balance</h3>
+                    <p>₹ 2,500</p>
+                </div>
+                <div class="card">
+                    <h3>Today Transactions</h3>
+                    <p>45</p>
+                </div>
             </div>
         </section>
 
-        <!-- Table section -->
-        <section class="table-section">
+        <!-- Services Section -->
+        <section id="services" class="services-section">
+            <h2>Available Services</h2>
+            <div class="services-container">
+                <div class="service-card">
+                    <h3>Birth Certificate</h3>
+                    <p>Apply for new birth certificate online.</p>
+                    <button onclick="alert('Redirect to Birth Certificate')">Apply Now</button>
+                </div>
+                <div class="service-card">
+                    <h3>Water Bill Payment</h3>
+                    <p>Pay your monthly water bill easily.</p>
+                    <button onclick="alert('Redirect to Water Bill Payment')">Pay Now</button>
+                </div>
+                <div class="service-card">
+                    <h3>Electricity Bill Payment</h3>
+                    <p>Pay your monthly electricity bill online.</p>
+                    <button onclick="alert('Redirect to Electricity Bill Payment')">Pay Now</button>
+                </div>
+                <!-- Add more services below -->
+            </div>
+        </section>
+
+        <!-- Applications Section -->
+        <section id="applications" class="table-section">
             <h2>Recent Applications</h2>
             <table>
                 <thead>
@@ -84,6 +110,5 @@
             </table>
         </section>
     </main>
-
 </body>
 </html>
