@@ -12,13 +12,12 @@
         <div class="logo">eMitra Dashboard</div>
         <nav>
             <ul>
-                <li><a href="#dashboard">Dashboard</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#applications">Applications</a></li>
-                <li><a href="#wallet">Wallet Refill</a></li>
-                <li><a href="#reports">Reports</a></li>
-                <li><a href="#settings">Settings</a></li>
-                <li><a href="#logout">Logout</a></li>
+                <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+                <li><a href="#" onclick="showSection('services')">Services</a></li>
+                <li><a href="#" onclick="showSection('applications')">Applications</a></li>
+                <li><a href="#" onclick="showSection('wallet')">Wallet Refill</a></li>
+                <li><a href="#" onclick="showSection('reports')">Reports</a></li>
+                <li><a href="#" onclick="showSection('settings')">Settings</a></li>
             </ul>
         </nav>
     </aside>
@@ -35,7 +34,7 @@
         </header>
 
         <!-- Dashboard Section -->
-        <section id="dashboard">
+        <section id="dashboard" class="section">
             <div class="cards">
                 <div class="card">
                     <h3>Total Services</h3>
@@ -57,7 +56,7 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="services-section">
+        <section id="services" class="section" style="display:none;">
             <h2>Available Services</h2>
             <div class="services-container">
                 <div class="service-card">
@@ -79,7 +78,7 @@
         </section>
 
         <!-- Applications Section -->
-        <section id="applications" class="table-section">
+        <section id="applications" class="section" style="display:none;">
             <h2>Recent Applications</h2>
             <table>
                 <thead>
