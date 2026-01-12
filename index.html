@@ -3,124 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eMitra Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>eMitra Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .login-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            width: 300px;
+            text-align: center;
+        }
+        .login-box h2 {
+            margin-bottom: 20px;
+            color: #013369;
+        }
+        .login-box input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .login-box button {
+            padding: 10px 20px;
+            background: #013369;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-box button:hover {
+            background: #021f4b;
+        }
+        .error { color: red; font-size: 14px; }
+    </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="logo">eMitra Dashboard</div>
-        <nav>
-            <ul>
-                <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
-                <li><a href="#" onclick="showSection('services')">Services</a></li>
-                <li><a href="#" onclick="showSection('applications')">Applications</a></li>
-                <li><a href="#" onclick="showSection('wallet')">Wallet Refill</a></li>
-                <li><a href="#" onclick="showSection('reports')">Reports</a></li>
-                <li><a href="#" onclick="showSection('settings')">Settings</a></li>
-            </ul>
-        </nav>
-    </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Header -->
-        <header>
-            <h1>Welcome, <span id="user-name">Guest</span></h1>
-            <div class="user-info">
-                <button id="login-btn">Login</button>
-                <button id="logout-btn" style="display:none;">Logout</button>
-            </div>
-        </header>
+<div class="login-box">
+    <h2>eMitra Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <div class="error" id="error"></div>
+    <button onclick="login()">Login</button>
+</div>
 
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="section">
-            <div class="cards">
-                <div class="card">
-                    <h3>Total Services</h3>
-                    <p>150+</p>
-                </div>
-                <div class="card">
-                    <h3>Pending Apps</h3>
-                    <p>12</p>
-                </div>
-                <div class="card">
-                    <h3>Wallet Balance</h3>
-                    <p>₹ 2,500</p>
-                </div>
-                <div class="card">
-                    <h3>Today Transactions</h3>
-                    <p>45</p>
-                </div>
-            </div>
-        </section>
+<script>
+function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorDiv = document.getElementById('error');
 
-        <!-- Services Section -->
-        <section id="services" class="section" style="display:none;">
-            <h2>Available Services</h2>
-            <div class="services-container">
-                <div class="service-card">
-                    <h3>Birth Certificate</h3>
-                    <p>Apply for new birth certificate online.</p>
-                    <button onclick="alert('Redirect to Birth Certificate')">Apply Now</button>
-                </div>
-                <div class="service-card">
-                    <h3>Water Bill Payment</h3>
-                    <p>Pay your monthly water bill easily.</p>
-                    <button onclick="alert('Redirect to Water Bill Payment')">Pay Now</button>
-                </div>
-                <div class="service-card">
-                    <h3>Electricity Bill Payment</h3>
-                    <p>Pay your monthly electricity bill online.</p>
-                    <button onclick="alert('Redirect to Electricity Bill Payment')">Pay Now</button>
-                </div>
-            </div>
-        </section>
+    // Simple login check (username: admin, password: 1234)
+    if(username === "admin" && password === "1234") {
+        localStorage.setItem('loggedIn', 'true'); // Mark user as logged in
+        window.location.href = "dashboard.html";
+    } else {
+        errorDiv.textContent = "Invalid username or password!";
+    }
+}
 
-        <!-- Applications Section -->
-        <section id="applications" class="section" style="display:none;">
-            <h2>Recent Applications</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Service</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>00123</td>
-                        <td>Ramesh</td>
-                        <td>Birth Certificate</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td>10‑Jan‑2026</td>
-                    </tr>
-                    <tr>
-                        <td>00124</td>
-                        <td>Suman</td>
-                        <td>Water Bill</td>
-                        <td><span class="status done">Completed</span></td>
-                        <td>11‑Jan‑2026</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+// Agar user already logged in hai, to dashboard redirect
+if(localStorage.getItem('loggedIn') === 'true') {
+    window.location.href = "dashboard.html";
+}
+</script>
 
-    <!-- Login Modal -->
-    <div id="login-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Login</h2>
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
-            <button id="login-submit">Login</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
