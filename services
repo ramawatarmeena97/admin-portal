@@ -1,1 +1,146 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eMitra Services</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#eef3fb;
+    margin:0;
+}
+
+body.dark{
+    background:#0c1222;
+    color:white;
+}
+
+header{
+    background:#013369;
+    color:white;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:15px;
+    padding:20px;
+}
+
+.service-card{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 3px 6px rgba(0,0,0,0.2);
+}
+
+body.dark .service-card{
+    background:#182036;
+    color:white;
+}
+
+button{
+    padding:6px 10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body id="body">
+
+<header>
+    <h2>eMitra – Services</h2>
+
+    <div>
+        <button onclick="toggleDark()">🌙 Dark Mode</button>
+
+        <a href="index.html">
+            <button>⬅ Dashboard</button>
+        </a>
+    </div>
+</header>
+
+<div style="padding:15px;">
+    <input type="text" id="search" placeholder="Search service" onkeyup="filterServices()">
+</div>
+
+<h3 style="padding-left:15px;">Services List</h3>
+
+<div class="service-grid" id="serviceList">
+
+    <!-- REAL LINKS (placeholder) -->
+    <div class="service-card">
+        <h3>Birth Certificate</h3>
+        <p>Apply Online</p>
+        <a href="#" target="_blank"><button>Open</button></a>
+    </div>
+
+    <div class="service-card">
+        <h3>Jan Aadhaar Update</h3>
+        <p>Edit mobile/address</p>
+        <a href="#" target="_blank"><button>Open</button></a>
+    </div>
+
+    <div class="service-card">
+        <h3>Electricity Bill</h3>
+        <p>Pay online</p>
+        <a href="#" target="_blank"><button>Open</button></a>
+    </div>
+
+</div>
+
+<!-- ADMIN PANEL -->
+<div style="padding:20px;border-top:2px solid gray">
+
+    <h3>⭐ Admin Panel – Add Service</h3>
+
+    <input type="text" id="newService" placeholder="Service name">
+    <button onclick="addService()">Add</button>
+</div>
+
+<script>
+// redirect if not logged in
+if(!localStorage.getItem("loggedUser")){
+    alert("Please login first");
+    window.location.href="index.html";
+}
+
+// dark mode
+function toggleDark(){
+    document.getElementById("body").classList.toggle("dark");
+}
+
+// search
+function filterServices(){
+    let input = document.getElementById("search").value.toLowerCase();
+    let cards = document.getElementsByClassName("service-card");
+
+    for(let i=0;i<cards.length;i++){
+        let text = cards[i].innerText.toLowerCase();
+        cards[i].style.display = text.includes(input) ? "block" : "none";
+    }
+}
+
+// admin add services
+function addService(){
+    let name=document.getElementById("newService").value;
+    if(name.trim()===""){alert("enter name");return;}
+
+    let div=document.createElement("div");
+    div.className="service-card";
+    div.innerHTML=`<h3>${name}</h3><p>Custom service</p><button onclick="this.parentElement.remove()">Delete</button>`;
+    document.getElementById("serviceList").appendChild(div);
+}
+</script>
+
+</body>
+</html>
 
