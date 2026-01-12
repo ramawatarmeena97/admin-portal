@@ -1,0 +1,123 @@
+/* Global resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background: #f4f4f4;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 230px;
+    background: #013369;
+    color: #fff;
+    padding: 20px;
+}
+
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav ul li {
+    margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    background: #021f4b;
+    padding-left: 10px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 16px;
+    color: #555;
+}
+
+.card p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* Table */
+.table-section {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.status.pending { background: #e67e22; }
+.status.done { background: #27ae60; }
