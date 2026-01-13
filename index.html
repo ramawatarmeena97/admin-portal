@@ -3,74 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>eMitra Dashboard</title>
-
-<link rel="stylesheet" href="styles.css">
+<title>Portal Login</title>
 
 <style>
-body.dark{
-    background:#0c1222;
-    color:white;
+body{
+  background:#0a2a66;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  color:white;
+}
+
+.login-box{
+  width:330px;
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:10px;
+}
+
+.login-box h2{
+  text-align:center;
+  margin-bottom:15px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  background:#0a2a66;
+  color:white;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#021f4b;
 }
 </style>
 </head>
 
-<body id="body">
+<body>
 
-<!-- Sidebar -->
-<aside class="sidebar">
-    <div class="logo">eMitra Dashboard</div>
+<div class="login-box">
+<h2>Login Portal</h2>
 
-    <nav>
-        <ul>
-            <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+<input type="text" id="user" placeholder="Username">
+<input type="password" id="pass" placeholder="Password">
 
-            <!-- services will open only after login -->
-            <li><a href="services.html" id="serviceLink" style="pointer-events:none;opacity:0.5;">Services (Login required)</a></li>
-
-            <li><a href="#" onclick="showSection('applications')">Applications</a></li>
-        </ul>
-    </nav>
-</aside>
-
-<!-- Main -->
-<main class="main-content">
-
-<header>
-    <h1>Welcome, <span id="user-name">Guest</span></h1>
-
-    <div>
-        <button id="darkModeBtn">🌙 Dark Mode</button>
-        <button id="login-btn">Login</button>
-        <button id="logout-btn" style="display:none;">Logout</button>
-    </div>
-</header>
-
-<section id="dashboard" class="section">
-    <h2>Dashboard</h2>
-    <p>Login करके services ko access करें</p>
-</section>
-
-<section id="applications" class="section" style="display:none;">
-    <h2>Applications List</h2>
-</section>
-
-</main>
-
-<!-- Login Modal -->
-<div id="login-modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Login</h2>
-
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-
-        <button id="login-submit">Login</button>
-    </div>
+<button onclick="login()">Login</button>
+<p id="msg" style="color:red; margin-top:8px;"></p>
 </div>
 
-<script src="script.js"></script>
+<script>
+function login(){
+
+   let u = document.getElementById("user").value;
+   let p = document.getElementById("pass").value;
+
+   // Demo login (aap change kar sakte ho)
+   if(u=="admin" && p=="12345"){
+        localStorage.setItem("loggedIn",true);
+        window.location.href="dashboard.html";
+   }else{
+        document.getElementById("msg").innerText="Wrong Username or Password";
+   }
+}
+</script>
 
 </body>
 </html>
