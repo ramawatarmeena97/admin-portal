@@ -1,83 +1,144 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal Login</title>
-
-<style>
-body{
-  background:#0a2a66;
-  font-family:Arial;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  color:white;
-}
-
-.login-box{
-  width:330px;
-  background:white;
-  color:black;
-  padding:20px;
-  border-radius:10px;
-}
-
-.login-box h2{
-  text-align:center;
-  margin-bottom:15px;
-}
-
-input{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-  border-radius:6px;
-  border:1px solid #ccc;
-}
-
-button{
-  width:100%;
-  padding:10px;
-  background:#0a2a66;
-  color:white;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#021f4b;
-}
-</style>
+    <title>Advanced Data Entry Portal</title>
+    <style>
+        body { font-family: Arial; background: #f5f5f5; padding: 30px; }
+        h2 { text-align: center; color: #333; }
+        input { padding: 8px; margin: 5px; width: 180px; }
+        button { padding: 8px 15px; margin: 5px; cursor:pointer; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; background:#fff; }
+        th, td { border: 1px solid #aaa; padding: 8px; text-align: left; }
+        th { background: #4CAF50; color: white; cursor:pointer; }
+        tr:nth-child(even){background-color: #f2f2f2;}
+        #controls { margin-bottom: 15px; text-align:center; }
+    </style>
 </head>
-
 <body>
 
-<div class="login-box">
-<h2>Login Portal</h2>
+<h2>Advanced Data Entry Portal</h2>
 
-<input type="text" id="user" placeholder="Username">
-<input type="password" id="pass" placeholder="Password">
-
-<button onclick="login()">Login</button>
-<p id="msg" style="color:red; margin-top:8px;"></p>
+<div id="controls">
+    <input type="text" id="name" placeholder="Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="phone" placeholder="Phone">
+    <input type="text" id="address" placeholder="Address">
+    <button onclick="addData()">Add</button>
+    <button onclick="exportCSV()">Export CSV</button>
+    <input type="text" id="searchBox" placeholder="Search..." onkeyup="searchTable()">
 </div>
 
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">Name ▲▼</th>
+            <th onclick="sortTable(1)">Email ▲▼</th>
+            <th onclick="sortTable(2)">Phone ▲▼</th>
+            <th onclick="sortTable(3)">Address ▲▼</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data rows will appear here -->
+    </tbody>
+</table>
+
 <script>
-function login(){
+let dataArray = [];
 
-   let u = document.getElementById("user").value;
-   let p = document.getElementById("pass").value;
+// Load from localStorage
+window.onload = function(){
+    if(localStorage.getItem("advData")){
+        dataArray = JSON.parse(localStorage.getItem("advData"));
+        dataArray.forEach(item => addRow(item));
+    }
+}
 
-   // Demo login (aap change kar sakte ho)
-   if(u=="admin" && p=="12345"){
-        localStorage.setItem("loggedIn",true);
-        window.location.href="dashboard.html";
-   }else{
-        document.getElementById("msg").innerText="Wrong Username or Password";
-   }
+// Add Data
+function addData(){
+    let name = document.getElementById('name').value.trim();
+    let email = document.getElementById('email').value.trim();
+    let phone = document.getElementById('phone').value.trim();
+    let address = document.getElementById('address').value.trim();
+
+    if(!name || !email) { alert("Name and Email required"); return; }
+
+    let newItem = {name,email,phone,address};
+    dataArray.push(newItem);
+    localStorage.setItem("advData", JSON.stringify(dataArray));
+    addRow(newItem);
+
+    // Clear inputs
+    document.getElementById('name').value='';
+    document.getElementById('email').value='';
+    document.getElementById('phone').value='';
+    document.getElementById('address').value='';
+}
+
+// Add row to table
+function addRow(item){
+    let tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+    let row = tbody.insertRow();
+    row.insertCell(0).innerText = item.name;
+    row.insertCell(1).innerText = item.email;
+    row.insertCell(2).innerText = item.phone;
+    row.insertCell(3).innerText = item.address;
+
+    // Action buttons
+    let actionCell = row.insertCell(4);
+    let delBtn = document.createElement('button');
+    delBtn.innerText = "Delete";
+    delBtn.onclick = function(){
+        let index = Array.from(tbody.rows).indexOf(row);
+        dataArray.splice(index,1);
+        localStorage.setItem("advData", JSON.stringify(dataArray));
+        tbody.deleteRow(index);
+    };
+    actionCell.appendChild(delBtn);
+}
+
+// Export CSV
+function exportCSV(){
+    if(dataArray.length==0){ alert("No data"); return; }
+
+    let csv = "Name,Email,Phone,Address\n";
+    dataArray.forEach(r => { csv += `${r.name},${r.email},${r.phone},${r.address}\n`; });
+
+    let blob = new Blob([csv], {type:"text/csv"});
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "data.csv";
+    link.click();
+}
+
+// Search Table
+function searchTable(){
+    let filter = document.getElementById("searchBox").value.toLowerCase();
+    let table = document.getElementById("dataTable");
+    let tr = table.getElementsByTagName("tr");
+
+    for(let i=1;i<tr.length;i++){
+        let td = tr[i].getElementsByTagName("td");
+        let txt = "";
+        for(let j=0;j<td.length-1;j++){ txt += td[j].innerText.toLowerCase()+" "; }
+        tr[i].style.display = txt.includes(filter) ? "" : "none";
+    }
+}
+
+// Sort Table
+function sortTable(col){
+    let tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+    let rows = Array.from(tbody.rows);
+    let asc = tbody.getAttribute('data-sort')==='asc' ? false : true;
+
+    rows.sort((a,b)=>{
+        let x = a.cells[col].innerText.toLowerCase();
+        let y = b.cells[col].innerText.toLowerCase();
+        return asc ? x.localeCompare(y) : y.localeCompare(x);
+    });
+
+    rows.forEach(r => tbody.appendChild(r));
+    tbody.setAttribute('data-sort', asc ? 'asc':'desc');
 }
 </script>
 
